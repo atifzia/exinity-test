@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: Payment Gateway API
+  version: 1.0.0
+  description: API documentation for the Payment Gateway Service.
+
+servers:
+  - url: http://localhost:8090
+    description: Local server
+
+paths:
+  /deposit:
+    post:
+      summary: Deposit funds into the user's account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '200':
+          description: Transaction processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /withdrawal:
+    post:
+      summary: Withdraw funds from the user's account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '200':
+          description: Transaction processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    TransactionRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Amount to be transacted
+          example: 100.0
+        user_id:
+          type: integer
+          description: User ID for the transaction
+          example: 123
+        country_id:
+          type: integer
+          description: Country ID for gateway selection
+          example: 840
+        currency:
+          type: string
+          description: Transaction currency
+          example: USD
+
+    APIResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Transaction processed successfully
+        data:
+          type: object
+          properties:
+            transaction_id:
+              type: integer
+              example: 12345
+            gateway_id:
+              type: integer
+              example: 1
+            status:
+              type: string
+              example: completed

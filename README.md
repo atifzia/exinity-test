@@ -1,7 +1,7 @@
 # Payment Gateway Service
 
 The Payment Gateway Service processes deposit and withdrawal transactions by dynamically selecting third-party gateways
-based on region and country configurations. It supports callback handling for transaction status updates and publishes
+based on country configurations. It supports callback handling for transaction status updates and publishes
 transaction events to Kafka.
 
 ---
@@ -112,7 +112,7 @@ Priority: Gateway 1 > Gateway 2 > Gateway 3
 Each gateway has a health-check endpoint to ensure availability. The system dynamically selects only healthy gateways
 during transaction processing.
 
-### Region-Based Gateway Selection
+### Country-Based Gateway Selection
 
 The `SelectGateway` function dynamically selects a gateway by:
 
